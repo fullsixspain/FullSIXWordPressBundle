@@ -18,7 +18,7 @@ Add the following dependencies to your projects composer.json file:
 
     "require": {
         # ..
-        "fullsixspain/wordpress-bundle": ">=0.1"
+        "fullsixspain/wordpress-bundle": "dev-master"
         # ..
     }
 
