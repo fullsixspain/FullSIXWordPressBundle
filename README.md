@@ -35,39 +35,41 @@ Install it from [here](https://github.com/fullsixspain/fullsix_wordpress_plugin)
 
 Edit your app_dev.php file and add this line at the beginning:
 
-    use FullSIX\Bundle\WordPressBundle\WordPressResponse;
+``` php
+use FullSIX\Bundle\WordPressBundle\WordPressResponse;
+```
 
 And at the end, replace:
 
 ``` php
-    $kernel = new AppKernel('dev', true);
-    $kernel->loadClassCache();
-    $request = Request::createFromGlobals();
-    $response = $kernel->handle($request);
-    $response->send();
-    $kernel->terminate($request, $response);
+$kernel = new AppKernel('dev', true);
+$kernel->loadClassCache();
+$request = Request::createFromGlobals();
+$response = $kernel->handle($request);
+$response->send();
+$kernel->terminate($request, $response);
 ```
 
 With:
 
 ``` php
-    $kernel = new AppKernel('dev', true);
-    $kernel->loadClassCache();
-    global $container, $response;
-    $request = Request::createFromGlobals();
-    $response = $kernel->handle($request);
-    $container = $kernel->getContainer();
-    if ($response instanceof WordPressResponse) {
-        $targetUrl = $response->getTargetUrl();
-        if (!empty($targetUrl)) {
-            $_SERVER['REQUEST_URI'] = $targetUrl;
-        }
-        define('WP_USE_THEMES', true);
-        require('./wp-blog-header.php');
-    } else {
-        $response->send();
-        $kernel->terminate($request, $response);
+$kernel = new AppKernel('dev', true);
+$kernel->loadClassCache();
+global $container, $response;
+$request = Request::createFromGlobals();
+$response = $kernel->handle($request);
+$container = $kernel->getContainer();
+if ($response instanceof WordPressResponse) {
+    $targetUrl = $response->getTargetUrl();
+    if (!empty($targetUrl)) {
+        $_SERVER['REQUEST_URI'] = $targetUrl;
     }
+    define('WP_USE_THEMES', true);
+    require('./wp-blog-header.php');
+} else {
+    $response->send();
+    $kernel->terminate($request, $response);
+}
 ```
 
 Once modified, replicate the changes to your app.php file and delete WordPress's index.php file.
@@ -77,33 +79,33 @@ that WordPress automatically made to your .htaccess file.
 ## Example of Symfony2 controller
 
 ``` php
-    /**
-     * @Route("/test-page/")
-     */
-    public function pageAction()
-    {
-        return WordPressResponse::currentPage(array("var1" => "value1", "var2" => 2));
-    }
+/**
+ * @Route("/test-page/")
+ */
+public function pageAction()
+{
+    return WordPressResponse::currentPage(array("var1" => "value1", "var2" => 2));
+}
 
-    /**
-     * @Route("/test-form/")
-     */
-    public function formAction(Request $request)
-    {
-        // Create form
-        $builder = $this->createFormBuilder();
-        $form = $builder
-            ->add('var1', 'text', array("label" => "Variable 1", "required" => false, "constraints" => new NotBlank()))
-            ->add('var2', 'text', array("label" => "Variable 2", "required" => false, "constraints" => new NotBlank()))
-            ->getForm();
-        $result = null;
-        if ($request->getMethod() == 'POST') {
-            $form->bind($request);
-            $data = $form->getData();
-            $result = $data["var1"]." ".$data["var2"];
-        }
-        return WordPressResponse::currentPage(array('form' => $form->createView(), "result" => $result));
+/**
+ * @Route("/test-form/")
+ */
+public function formAction(Request $request)
+{
+    // Create form
+    $builder = $this->createFormBuilder();
+    $form = $builder
+        ->add('var1', 'text', array("label" => "Variable 1", "required" => false, "constraints" => new NotBlank()))
+        ->add('var2', 'text', array("label" => "Variable 2", "required" => false, "constraints" => new NotBlank()))
+        ->getForm();
+    $result = null;
+    if ($request->getMethod() == 'POST') {
+        $form->bind($request);
+        $data = $form->getData();
+        $result = $data["var1"]." ".$data["var2"];
     }
+    return WordPressResponse::currentPage(array('form' => $form->createView(), "result" => $result));
+}
 ```
 
 This will create two routes, which will delegate their view to the respective WordPress page. For example, in the
