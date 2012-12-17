@@ -31,7 +31,7 @@ Add the following dependencies to your projects composer.json file:
 public function registerBundles() {
     $bundles = array(
         // ...
-        new FullSIX\Bundle\FullSIXWordPressBundle(),
+        new FullSIX\Bundle\WordPressBundle(),
         // ...
     );
 }

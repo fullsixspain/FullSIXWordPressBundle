@@ -15,7 +15,7 @@
         "php": ">=5.3.2"
     },
     "autoload": {
-        "psr-0": { "FullSIX\\Bundle\\FullSIXWordPressBundle": "" }
+        "psr-0": { "FullSIX\\Bundle\\WordPressBundle": "" }
     },
-    "target-dir": "FullSIX/Bundle/FullSIXWordPressBundle"
+    "target-dir": "FullSIX/Bundle/WordPressBundle"
 }
