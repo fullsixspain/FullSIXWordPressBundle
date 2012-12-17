@@ -39,15 +39,18 @@ Edit your app_dev.php file and add this line at the beginning:
 
 And at the end, replace:
 
+``` php
     $kernel = new AppKernel('dev', true);
     $kernel->loadClassCache();
     $request = Request::createFromGlobals();
     $response = $kernel->handle($request);
     $response->send();
     $kernel->terminate($request, $response);
+```
 
 With:
 
+``` php
     $kernel = new AppKernel('dev', true);
     $kernel->loadClassCache();
     global $container, $response;
@@ -65,6 +68,7 @@ With:
         $response->send();
         $kernel->terminate($request, $response);
     }
+```
 
 Once modified, replicate the changes to your app.php file and delete WordPress's index.php file.
 If you activate WordPress's url rewriting capabilities, you may need to comment modifications
@@ -72,10 +76,11 @@ that WordPress automatically made to your .htaccess file.
 
 ## Example of Symfony2 controller
 
+``` php
     /**
      * @Route("/test-page/")
      */
-    public function indexAction()
+    public function pageAction()
     {
         return WordPressResponse::currentPage(array("var1" => "value1", "var2" => 2));
     }
@@ -99,6 +104,7 @@ that WordPress automatically made to your .htaccess file.
         }
         return WordPressResponse::currentPage(array('form' => $form->createView(), "result" => $result));
     }
+```
 
 This will create two routes, which will delegate their view to the respective WordPress page. For example, in the
 /test-page/ WordPress content, you can have:
