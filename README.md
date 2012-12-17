@@ -18,7 +18,7 @@ Add the following dependencies to your projects composer.json file:
 
     "require": {
         # ..
-        "fullsixspain/wordpress-bundle": "dev-master"
+        "fullsix/wordpress-bundle": "dev-master"
         # ..
     }
 
@@ -66,7 +66,9 @@ With:
         $kernel->terminate($request, $response);
     }
 
-Once modified, replicate the changes to your app.php file.
+Once modified, replicate the changes to your app.php file and delete WordPress's index.php file.
+If you activate WordPress's url rewriting capabilities, you may need to comment modifications
+that WordPress automatically made to your .htaccess file.
 
 ## Example of Symfony2 controller
 
