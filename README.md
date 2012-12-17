@@ -22,6 +22,21 @@ Add the following dependencies to your projects composer.json file:
         # ..
     }
 
+### Register the bundle in the kernel
+
+``` php
+<?php
+// app/AppKernel.php
+
+public function registerBundles() {
+    $bundles = array(
+        // ...
+        new FullSIX\Bundle\FullSIXWordPressBundle(),
+        // ...
+    );
+}
+```
+
 ### Install WordPress
 
 Install WordPress in your _web_ directory and launch its configuration.
