@@ -20,7 +20,7 @@
 
     <services>
 
-        <service id="notfound.listener" class="FullSIX\WordPressBundle\WordPress404Listener">
+        <service id="notfound.listener" class="FullSIX\Bundle\WordPressBundle\WordPress404Listener">
             <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException"/>
         </service>
 
