@@ -4,24 +4,14 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
-    <parameters>
-        <parameter key="full_six_word_press.example.class">FullSIX\WordPressBundle\Example</parameter>
-    </parameters>
-
-    <services>
-        <service id="full_six_word_press.example" class="%full_six_word_press.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
-        </service>
-    </services>
-    -->
-
     <services>
 
         <service id="notfound.listener" class="FullSIX\Bundle\WordPressBundle\WordPress404Listener">
             <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException"/>
+        </service>
+
+        <service id="twig.bridge.extension" class="FullSIX\Bundle\WordPressBundle\Twig\Extension\TwigBridgeExtension" public="false">
+            <tag name="twig.extension"/>
         </service>
 
         <service id="twig.loader.string" class="Twig_Loader_String" public="false">
