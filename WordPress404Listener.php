@@ -3,6 +3,7 @@
 namespace FullSIX\Bundle\WordPressBundle;
 
 use FullSIX\Bundle\WordPressBundle\WordPressResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
@@ -13,6 +14,8 @@ class WordPress404Listener
 {
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
-        $event->setResponse(new WordPressResponse());
+        if ($event->getException() instanceof NotFoundHttpException) {
+            $event->setResponse(new WordPressResponse());
+        }
     }
 }
