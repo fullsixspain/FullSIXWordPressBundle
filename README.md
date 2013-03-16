@@ -75,6 +75,8 @@ $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $container = $kernel->getContainer();
 if ($response instanceof WordPressResponse) {
+    $container->enterScope('request');
+    $container->set('request', $request, 'request');
     $targetUrl = $response->getTargetUrl();
     if (!empty($targetUrl)) {
         $_SERVER['REQUEST_URI'] = $targetUrl;
