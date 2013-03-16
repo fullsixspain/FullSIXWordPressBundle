@@ -6,7 +6,9 @@ This bundle tries to integrate WordPress with Symfony2, in the way that WordPres
 is used to handle the views, and Symfony2 is used to handle the controller.
 
 This bundle should be used when you want to add Symfony2 controllers to an existing
-WordPress website, for example. This is really basic but in fact it works quite well.
+WordPress website, for example. This is really basic but in fact it works quite well,
+and we have implemented this mechanism on various wordpress instances, one of them
+containing two blogs, using various languages (using the excellent WPML plugins).
 
 It needs Symfony >= 2.2 in order to interpret Twig tags inside WordPress content.
 
